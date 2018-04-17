@@ -26,8 +26,6 @@ class Tensor:
                 if j in type_index:
                     self.tensor[i][j] = type_value_counts[j]
       
-        
-    
     def analysis_activity_log(activity_log):
         activity_type_log = list()
         activity_log_list = activity_log.split('#')
