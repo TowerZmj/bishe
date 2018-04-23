@@ -8,10 +8,13 @@ class Tensor:
         self.activity_log = tensor_info['activity_log']
         
     def build_tensor(self):
-        x_length = len(self.merchant_id)
+        x_length = self.merchant_id.size
         y_length = 4
         self.tensor = np.zeros((x_length, y_length))
-
+        
+        if x_length == 1:
+            self.merchant_id = pd.Series(self.merchant_id)
+            
         merchant_id_arr = self.merchant_id.values
         activity_log_arr = self.activity_log.values
         for i in range(x_length):
