@@ -9,8 +9,7 @@ def deque(items):
             yield item
             seen.add(item)
 
-def transform_csv_to_liner_tensor(csv_file_name):
-    df = pd.read_csv(csv_file_name, index_col='user_id')
+def transform_csv_to_liner_tensor(df):
     df.fillna(0)
     user_id_list = list(deque(df.index.values))
     users_tensor = dict()
@@ -30,10 +29,25 @@ def transform_csv_to_liner_tensor(csv_file_name):
      
     return users_tensor
 
+def delete_user(df, user_id):
+    pass
+
+def delete_user_with_index(df, user_id, user_delete_index_list):
+    pass
+
+def clean_dirty_data(df, users_tensor):
+    for user_id, user_tensor in users_tensor.items():
+        if user_tensor.is_crawler():
+            delete_user(df, user_id)
+            continue
+        user_delete_index_list = user_tensor.is_one_click()    
+        delete_user_with_index(df, user_id, user_delete_index_list)
 
 def main():
-    users_tensor = transform_csv_to_liner_tensor('train_format2.csv')
-
+    df = pd.read_csv('train_format2.csv', index_col='user_id')
+    users_tensor = transform_csv_to_liner_tensor(df)
+    clean_dirty_data(df, users_tensor)
+    
 if __name__ == '__main__':
     print 'start'
     start = time()
