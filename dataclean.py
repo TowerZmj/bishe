@@ -29,7 +29,7 @@ def transform_csv_to_liner_tensor(df):
      
     return users_tensor
 
-def get_clean_csv(df, users_tensor):
+def get_clean_csv(df, users_tensor, to_csv_file='clean_data.csv'):
     first_time = True
     for user_id, user_tensor in users_tensor.items():
         if user_tensor.is_crawler():
@@ -39,9 +39,9 @@ def get_clean_csv(df, users_tensor):
         user_df = user_df.reset_index()
         user_df = user_df.drop(user_delete_index_list)
         if first_time:
-            user_df.to_csv('clean_data.csv', header=True, index=False)
+            user_df.to_csv(to_csv_file, header=True, index=False)
             first_time = False
         else:
-            user_df.to_csv('clean_data.csv', header=False, index=False,\
-             mode='wa+')        
+            user_df.to_csv(to_csv_file, header=False, index=False,\
+             mode='a')        
 
