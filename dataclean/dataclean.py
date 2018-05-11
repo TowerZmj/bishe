@@ -31,7 +31,10 @@ def transform_csv_to_liner_tensor(df):
 
 def get_clean_csv(df, users_tensor, to_csv_file='clean_data.csv'):
     first_time = True
-    for user_id, user_tensor in users_tensor.items():
+    user_id_list = list(deque(df.index.values))
+    for user_id in user_id_list:
+    #  for user_id, user_tensor in users_tensor.items():
+        user_tensor = users_tensor[user_id]
         if user_tensor.is_crawler():
             continue
         user_delete_index_list = user_tensor.is_one_click()    

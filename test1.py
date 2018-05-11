@@ -1,7 +1,7 @@
 from dataclean import *
 
 def main():
-    df = pd.read_csv('test1.csv', index_col='user_id')
+    df = pd.read_csv('win_test.csv', index_col='user_id')
     users_tensor = transform_csv_to_liner_tensor(df)
     get_clean_csv(df, users_tensor)     
  
